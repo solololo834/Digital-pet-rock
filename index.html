@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digital Pet Rock & Chat</title>
+  <style>
+    body {
+      background-image: url('rocky.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      margin: 0;
+      font-family: sans-serif;
+    }
+    #s {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      z-index: 3;
+    }
+    .screen-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(26, 26, 26, 0.95);
+      z-index: 999;
+      display: none;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-y: auto;
+      padding-top: 50px;
+    }
+    .content {
+      text-align: center;
+      color: white;
+      padding-bottom: 100px;
+    }
+    #img, #img2, #img3 , #img4 {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    #img img, #img2 img, #img3 img,#img4 img {
+      width: 100px;
+      height: 100px;
+      background-color: #333; 
+      border-radius: 8px;
+    }
+    #buy, #buy2, #buy3, #buy4 {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+    #buy button, #buy2 button, #buy3 button, #buy4 button {
+      border: none;
+      background-color: lightgreen;
+      border-radius: 5px;
+      padding: 10px 10px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100px;
+    }
+    #close-btn {
+      position: fixed;
+      padding: 10px 40px;
+      background-color: #ff4c4c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      bottom: -10px;
+    }
+    #moneydisp {
+      position: fixed;
+      left: 200px;
+      top: 5px;
+      background-color: #ACAEC1;
+      padding: 10px;
+      border-radius: 15px;
+      z-index: 3;
+    }
+    #name {
+      position: relative;
+      top: 100px;
+      left: 100px;
+      z-index: 3;
+      color: yellowgreen;
+    }
+    #stop-drag {
+      position: fixed;
+      top: 600px;
+      left: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      z-index: 2;
+    }
+    #chat {
+      position: fixed;
+      top: 600px;
+      left: 220px;
+      padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #0984e3; color: white; border: none; z-index: 3;
+      bottom: 5px;
+
+    }
+
+    #chat-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 450px;
+      height: 85vh;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+      border-radius: 15px;
+      position: relative;
+    }
+
+    #close-chat {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      font-weight: bold;
+      color: #999;
+      cursor: pointer;
+      z-index: 10;
+    }
+    #close-chat:hover { color: #ff4c4c; }
+
+    .header { padding: 15px; display: flex; align-items: center; border-bottom: 1px solid #e5e5e5; gap: 12px; }
+    .avatar { width: 40px; height: 40px; background: linear-gradient(45deg, #ff4d6d, #ff758c); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px; }
+    .status-dot { width: 10px; height: 10px; background: #42b72a; border-radius: 50%; border: 2px solid white; position: absolute; bottom: 0; right: 0; }
+    #chat-window { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background-color: #ffffff; }
+    .message { max-width: 70%; padding: 10px 15px; font-size: 15px; line-height: 1.4; word-wrap: break-word; }
+    .received { align-self: flex-start; background-color: #e4e6eb; color: #050505; border-radius: 18px 18px 18px 4px; }
+    .sent { align-self: flex-end; background-color: #0084ff; color: white; border-radius: 18px 18px 4px 18px; }
+    .input-area { padding: 15px; border-top: 1px solid #e5e5e5; display: flex; align-items: center; gap: 10px; }
+    .input-area input { flex: 1; padding: 12px 15px; border: none; background: #f0f2f5; border-radius: 20px; outline: none; font-size: 15px; }
+    .send-btn { background: none; border: none; color: #0084ff; font-weight: bold; font-size: 16px; cursor: pointer; padding: 5px 10px; }
+    .send-btn:hover { color: #0064d1; }
+    
+    #outfit-btn {
+  position: fixed;
+  top: 550px;
+  
+  left: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #ff9f43;
+  color: white;
+  border: none;
+  z-index: 3;
+}
+
+#outfit-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 2001;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  color: white;
+}
+
+.outfit-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.outfit-card {
+  background: #333;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.outfit-card button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background: #42b72a;
+  border: none;
+  color: white;
+  border-radius: 3px;
+}
+
+#custom-shop-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.custom-item-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #333;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <button type="button" id="s">🛒 Shop</button>
+  <h3 id="moneydisp">Money: 5💵</h3>
+  <input type="text" id="name" placeholder="Give your rock a name...">
+  <button type="button" id="chat">CHAT WITH Unamed rock</button>
+  <button type="button" id="stop-drag">Stop DRAGGING</button>
+<button type="button" id="outfit-btn">👔 My Outfits</button>
+
+<button type="button" id="clear-menu-btn" style="position: fixed; top: 500px; left: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #6c5ce7; color: white; border: none; z-index: 3;">🧹 Clear Menu</button>
+
+<button type="button" id="unclear-btn" style="position: fixed; top: 20px; left: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #00b894; color: white; border: none; z-index: 1000; display: none;">✨ Unclear Buttons</button>
+
+<div id="clear-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.8); z-index: 2002; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+  <h1 style="color: white;">What do you want to clear?</h1>
+  <button id="clear-items-btn" style="padding: 15px 30px; background: #ff4c4c; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold;">🗑️ Clear All Items</button>
+  <button id="clear-ui-btn" style="padding: 15px 30px; background: #fdcb6e; color: black; border: none; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold;">🚫 Clear All Buttons</button>
+  <button id="close-clear" style="margin-top: 20px; color: white; background: none; border: 1px solid white; padding: 5px 15px; cursor: pointer;">Cancel</button>
+</div>
+
+<button type="button" id="custom-item-btn" style="position: fixed; top: 550px; left: 200px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #0984e3; color: white; border: none; z-index: 3;">🎨 Custom Item</button>
+
+<div id="custom-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); z-index: 2005; display: none; flex-direction: column; align-items: center; justify-content: center; color: white; gap: 15px;">
+    <h2>Create Custom Item</h2>
+    <input type="text" id="custom-name" placeholder="Item Name..." style="padding: 10px; border-radius: 5px; border: none; width: 250px;">
+    <p>Upload Image:</p>
+    <input type="file" id="custom-file" accept="image/*" style="color: white;">
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <button id="confirm-custom" style="padding: 10px 20px; background: #42b72a; color: white; border: none; border-radius: 5px; cursor: pointer;">Confirm (100💵)</button>
+        <button id="close-custom" style="padding: 10px 20px; background: #ff4c4c; color: white; border: none; border-radius: 5px; cursor: pointer;">Cancel</button>
+    </div>
+</div>
+
+<div id="outfit-overlay">
+  <h1>My Saved Outfits</h1>
+  <button id="save-current-outfit" style="padding: 10px 20px; background: #0084ff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+    + Save Current Outfit
+  </button>
+  <div class="outfit-list" id="outfit-list">
+    </div>
+  <button id="close-outfit" style="margin-top: 30px; padding: 10px 40px; background: #ff4c4c; color: white; border: none; border-radius: 5px; cursor: pointer;">
+    Close
+  </button>
+</div>
+
+  <div class="screen-overlay" id="overlay">
+    <div class="content">
+      <h1>Rock Needs Shop 🛒</h1>
+      <div id="img">
+        <img src="eye1.png" />
+        <img src="eye2.png" />
+        <img src="eye3.png" />
+      </div>
+      <div id="buy">
+        <button id="e1" data-p="20">BUY (20)</button>
+        <button id="e2" data-p="30">BUY (30)</button>
+        <button id="e3" data-p="40">BUY (40)</button>
+      </div>
+      <div id="img2">
+        <img src="balcap.png" />
+        <img src="top.png" />
+        <img src="moustache.png" />
+      </div>
+      <div id="buy2">
+        <button id="h1" data-p="20">BUY (20)</button>
+        <button id="h2" data-p="30">BUY (30)</button>
+        <button id="h3" data-p="40">BUY (40)</button>
+      </div>
+      <div id="img3">
+        <img src="pirate.png" />
+        <img src="chef.png" />
+        <img src="builderhat.png" />
+      </div>
+      <div id="buy3">
+        <button id="h4" data-p="20">BUY (20)</button>
+        <button id="h5" data-p="30">BUY (30)</button>
+        <button id="h6" data-p="40">BUY (40)</button>
+      </div>
+      <div id="img4">
+        <img src="mouth.png" />
+        <img src="smile.png" />
+        <img src="default.png" />
+      </div>
+      <div id="buy4">
+        <button id="m1" data-p="10">BUY (10)</button>
+        <button id="m2" data-p="30">BUY (30)</button>
+        <button id="m3" data-p="20">BUY (20)</button>
+      </div>
+      <h3 style="margin-top:30px;">Custom Items</h3>
+<div id="custom-shop-container" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 50px;">
+    </div>
+
+      <button id="close-btn">Close</button>
+    </div>
+  </div>
+
+  <div id="chat-overlay">
+    <div class="app-container">
+      <button id="close-chat">&times;</button>
+      <div class="header">
+          <div style="position: relative;">
+              <div class="avatar"></div>
+              <div class="status-dot"></div>
+          </div>
+          <div>
+              <h4 id="chat-header-name" style="margin:0; font-size: 16px; color: black;">unamed rock</h4>
+              <p style="margin:0; font-size: 12px; color: #65676b;">Active right now</p>
+          </div>
+      </div>
+
+      <div id="chat-window">
+      </div>
+
+      <div class="input-area">
+          <input type="text" id="user-input" placeholder="Type something..." autocomplete="off">
+          <button class="send-btn" onclick="prosesChat()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const shopButton = document.getElementById("s");
+    const overlay = document.getElementById("overlay");
+    const closeButton = document.getElementById("close-btn");
+    const md = document.getElementById("moneydisp");
+    let money = 5;
+
+    shopButton.onclick = () => overlay.style.display = "flex";
+    closeButton.onclick = () => overlay.style.display = "none";
+
+    function makeDraggable(el) {
+      let active = false;
+      let xOffset = 0, yOffset = 0;
+      let initialX, initialY;
+      let currentScale = 1;
+      let initialDistance = 0;
+
+      function getDistance(touches) {
+        return Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
+      }
+
+      function handleStart(e) {
+        if (e.touches && e.touches.length === 2) {
+          active = false;
+          initialDistance = getDistance(e.touches);
+        } else {
+          const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+          const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+          initialX = clientX - xOffset;
+          initialY = clientY - yOffset;
+          if (e.target === el) active = true;
+        }
+      }
+
+      function handleMove(e) {
+        if (e.touches && e.touches.length === 2) {
+          e.preventDefault();
+          const newDistance = getDistance(e.touches);
+          const delta = newDistance / initialDistance;
+          initialDistance = newDistance;
+          currentScale = Math.min(Math.max(0.5, currentScale * delta), 4);
+          updateTransform();
+        } else if (active) {
+          e.preventDefault();
+          const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+          const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+          xOffset = clientX - initialX;
+          yOffset = clientY - initialY;
+          updateTransform();
+        }
+      }
+
+      function updateTransform() {
+        el.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0) scale(${currentScale})`;
+      }
+
+      function handleEnd() { 
+        active = false; 
+        saveItems();
+      }
+
+      el.addEventListener("touchstart", handleStart, {passive: false});
+      el.addEventListener("touchmove", handleMove, {passive: false});
+      el.addEventListener("touchend", handleEnd);
+      el.addEventListener("mousedown", handleStart);
+      window.addEventListener("mousemove", handleMove);
+      window.addEventListener("mouseup", handleEnd);
+    }
+
+    function saveItems() {
+        const activeItems = [];
+        document.querySelectorAll('body > img').forEach(img => {
+            activeItems.push({
+                src: img.getAttribute('src'),
+                transform: img.style.transform,
+                top: img.style.top,
+                left: img.style.left
+            });
+        });
+        localStorage.setItem("rock_items", JSON.stringify(activeItems));
+    }
+
+    function createItem(src, price, isLoading = false) {
+      if (money >= price || isLoading) {
+        if (!isLoading) money -= price;
+        md.innerText = "Money: " + money + "💵";
+        const img = document.createElement("img");
+        img.src = src;
+        img.style.cssText = `position: fixed; top: 40%; left: 40%; width: 100px; z-index: 2; touch-action: none; user-select: none; cursor: move;`;
+        document.body.appendChild(img);
+        makeDraggable(img);
+        overlay.style.display = "none";
+        if (!isLoading) saveItems();
+      } else {
+        alert("Money not enough!");
+      }
+    }
+
+    function loadGameState() {
+        const savedMoney = localStorage.getItem("rock_money");
+        if (savedMoney !== null) {
+            money = parseInt(savedMoney);
+            md.innerText = "Money: " + money + "💵";
+        }
+        const savedItems = JSON.parse(localStorage.getItem("rock_items") || "[]");
+        savedItems.forEach(itemData => {
+            const img = document.createElement("img");
+            img.src = itemData.src;
+            img.style.cssText = `position: fixed; top: ${itemData.top}; left: ${itemData.left}; width: 100px; z-index: 2; touch-action: none; user-select: none; cursor: move;`;
+            img.style.transform = itemData.transform;
+            document.body.appendChild(img);
+            makeDraggable(img);
+        });
+
+        const savedName = localStorage.getItem("rock_name");
+        if (savedName) {
+            nameInput.value = savedName;
+            chatButton.innerText = "CHAT WITH " + savedName.toUpperCase();
+            chatHeaderName.innerText = savedName;
+        }
+    }
+
+    const items = {
+      "e1": "eye1.png", "e2": "eye2.png", "e3": "eye3.png",
+      "h1": "balcap.png", "h2": "top.png", "h3": "moustache.png",
+      "h4": "pirate.png", "h5": "chef.png", "h6": "builderhat.png",
+      "m1": "mouth.png", "m2": "smile.png", "m3": "default.png"
+    };
+
+    Object.keys(items).forEach(id => {
+      const btn = document.getElementById(id);
+      if(btn) {
+        btn.onclick = () => {
+          const price = parseInt(btn.getAttribute("data-p"));
+          createItem(items[id], price);
+        };
+      }
+    });
+
+    setInterval(() => {
+      money += 5;
+      md.innerText = "Money: " + money + "💵";
+      localStorage.setItem("rock_money", money);
+    }, 1000);
+
+    window.onload = loadGameState;
+    
+    let nameInput = document.getElementById("name");
+    let chatButton = document.getElementById("chat");
+    let chatHeaderName = document.getElementById("chat-header-name");
+    
+    nameInput.addEventListener("input", function(){
+      let val = nameInput.value.trim() === "" ? "DOI" : nameInput.value;
+      chatButton.innerText = "CHAT WITH " + val.toUpperCase();
+      chatHeaderName.innerText = val;
+      localStorage.setItem("rock_name", nameInput.value);
+    });
+    
+    (function() {
+      const stopBtn = document.getElementById("stop-drag");
+      let dragEnabled = true;
+      
+      stopBtn.onclick = () => {
+        dragEnabled = !dragEnabled;
+        stopBtn.innerText = dragEnabled ? "Stop DRAGGING" : "Start DRAGGING";
+        stopBtn.style.backgroundColor = dragEnabled ? "red" : "green";
+        
+        const imgs = document.querySelectorAll('body > img');
+        imgs.forEach(img => {
+          img.style.pointerEvents = dragEnabled ? "auto" : "none";
+        });
+      };
+      
+      const itemsObserver = new MutationObserver(() => {
+        if (!dragEnabled) {
+          document.querySelectorAll('body > img').forEach(img => {
+            img.style.pointerEvents = "none";
+          });
+        }
+      });
+      
+      itemsObserver.observe(document.body, { childList: true });
+    })();
+
+    const chatOverlay = document.getElementById('chat-overlay');
+    const closeChatBtn = document.getElementById('close-chat');
+    const chatBox = document.getElementById('chat-window');
+    const inputField = document.getElementById('user-input');
+
+    chatButton.onclick = () => {
+      chatOverlay.style.display = "flex";
+    };
+
+    closeChatBtn.onclick = () => {
+      chatOverlay.style.display = "none";
+    };
+
+    const balasans = ["doi", "HIH", "HIHIHI", "WINT KWINIY", "i am the alpha rock...", "Buy me a hat!"];
+
+    function tambahPesan(teks, tipe) {
+      const div = document.createElement('div');
+      div.className = `message ${tipe}`;
+      div.innerText = teks;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function prosesChat() {
+      const pesan = inputField.value.trim();
+      
+      if (pesan !== "") {
+        tambahPesan(pesan, 'sent');
+        inputField.value = "";
+        
+        setTimeout(() => {
+          const jawabanAcak = balasans[Math.floor(Math.random() * balasans.length)];
+          tambahPesan(jawabanAcak, 'received');
+        }, 700);
+      }
+    }
+
+    inputField.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        prosesChat();
+      }
+    });
+    
+    const outfitBtn = document.getElementById("outfit-btn");
+const outfitOverlay = document.getElementById("outfit-overlay");
+const closeOutfitBtn = document.getElementById("close-outfit");
+const saveOutfitBtn = document.getElementById("save-current-outfit");
+const outfitListDiv = document.getElementById("outfit-list");
+
+
+outfitBtn.onclick = () => {
+    renderOutfits();
+    outfitOverlay.style.display = "flex";
+};
+closeOutfitBtn.onclick = () => outfitOverlay.style.display = "none";
+
+
+saveOutfitBtn.onclick = () => {
+    const outfitName = prompt("Kasih nama untuk outfit ini:");
+    if (!outfitName) return;
+
+    const currentItems = [];
+    document.querySelectorAll('body > img').forEach(img => {
+        currentItems.push({
+            src: img.getAttribute('src'),
+            transform: img.style.transform,
+            top: img.style.top,
+            left: img.style.left
+        });
+    });
+
+    if (currentItems.length === 0) {
+        alert("your pet rock are naked, buy something first before save.");
+        return;
+    }
+
+    const savedOutfits = JSON.parse(localStorage.getItem("rock_presets") || "[]");
+    savedOutfits.push({ name: outfitName, items: currentItems });
+    localStorage.setItem("rock_presets", JSON.stringify(savedOutfits));
+    
+    renderOutfits();
+    alert("Outfit '" + outfitName + "' successfully saved!");
+};
+
+
+function renderOutfits() {
+    outfitListDiv.innerHTML = "";
+    const savedOutfits = JSON.parse(localStorage.getItem("rock_presets") || "[]");
+
+    savedOutfits.forEach((outfit, index) => {
+        const card = document.createElement("div");
+        card.className = "outfit-card";
+        card.innerHTML = `
+<div style="font-weight: bold; margin-bottom: 5px;">${outfit.name}</div>
+            <button onclick="applyOutfit(${index})">Use</button>
+            <button onclick="deleteOutfit(${index})" style="background:#ff4c4c">Delete</button>
+        `;
+        outfitListDiv.appendChild(card);
+    });
+}
+
+window.applyOutfit = (index) => {
+    const savedOutfits = JSON.parse(localStorage.getItem("rock_presets") || "[]");
+    const outfit = savedOutfits[index];
+
+
+    document.querySelectorAll('body > img').forEach(img => img.remove());
+
+    outfit.items.forEach(itemData => {
+        const img = document.createElement("img");
+        img.src = itemData.src;
+        img.style.cssText = `position: fixed; top: ${itemData.top}; left: ${itemData.left}; width: 100px; z-index: 2; touch-action: none; user-select: none; cursor: move;`;
+        img.style.transform = itemData.transform;
+        document.body.appendChild(img);
+        makeDraggable(img);
+    });
+
+    saveItems();
+    outfitOverlay.style.display = "none";
+};
+
+window.deleteOutfit = (index) => {
+    if(confirm("delete this preset?")) {
+        const savedOutfits = JSON.parse(localStorage.getItem("rock_presets") || "[]");
+        savedOutfits.splice(index, 1);
+        localStorage.setItem("rock_presets", JSON.stringify(savedOutfits));
+        renderOutfits();
+    }
+};
+
+const clearMenuBtn = document.getElementById("clear-menu-btn");
+const clearOverlay = document.getElementById("clear-overlay");
+const clearItemsBtn = document.getElementById("clear-items-btn");
+const clearUiBtn = document.getElementById("clear-ui-btn");
+const closeClearBtn = document.getElementById("close-clear");
+const unclearBtn = document.getElementById("unclear-btn");
+
+
+clearMenuBtn.onclick = () => clearOverlay.style.display = "flex";
+
+
+closeClearBtn.onclick = () => clearOverlay.style.display = "none";
+
+
+clearItemsBtn.onclick = () => {
+    if(confirm("Delete all your ")) {
+        document.querySelectorAll('body > img').forEach(img => img.remove());
+        localStorage.setItem("rock_items", JSON.stringify([])); 
+        clearOverlay.style.display = "none";
+    }
+};
+
+
+clearUiBtn.onclick = () => {
+    
+    const elementsToHide = document.querySelectorAll('button:not(#unclear-btn), #moneydisp, #name');
+    
+    elementsToHide.forEach(el => {
+        el.style.display = "none";
+    });
+
+    
+    unclearBtn.style.display = "block";
+    clearOverlay.style.display = "none";
+};
+
+
+unclearBtn.onclick = () => {
+    const elementsToShow = document.querySelectorAll('button:not(#unclear-btn), #moneydisp, #name');
+    
+    elementsToShow.forEach(el => {
+        
+        if (el.id === "moneydisp") {
+            el.style.display = "block";
+        } else {
+            el.style.display = ""; 
+        }
+    });
+
+    unclearBtn.style.display = "none";
+};
+
+
+const customItemBtn = document.getElementById("custom-item-btn");
+const customOverlay = document.getElementById("custom-overlay");
+const closeCustomBtn = document.getElementById("close-custom");
+const confirmCustomBtn = document.getElementById("confirm-custom");
+
+
+customItemBtn.onclick = () => { customOverlay.style.display = "flex"; };
+closeCustomBtn.onclick = () => { customOverlay.style.display = "none"; };
+
+
+function loadCustomItems() {
+    const container = document.getElementById("custom-shop-container");
+    if (!container) return; 
+
+    container.innerHTML = "";
+    const savedCustoms = JSON.parse(localStorage.getItem("rock_custom_items") || "[]");
+    
+    savedCustoms.forEach(item => {
+        const itemBox = document.createElement("div");
+        itemBox.className = "custom-item-box";
+
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.style.width = "100px";
+        img.style.height = "100px";
+        img.style.objectFit = "contain";
+        img.style.borderRadius = "8px";
+
+        const btn = document.createElement("button");
+        btn.innerText = "BUY (100💵)";
+        btn.style.cssText = "background: lightgreen; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100px;";
+        
+        btn.onclick = () => createItem(item.image, 100);
+
+        itemBox.appendChild(img);
+        itemBox.appendChild(btn);
+        container.appendChild(itemBox);
+    });
+}
+
+
+confirmCustomBtn.onclick = () => {
+    const nameInput = document.getElementById("custom-name");
+    const fileInput = document.getElementById("custom-file");
+    
+    if (!nameInput.value.trim() || fileInput.files.length === 0) {
+        alert("Fill in name and upload image!");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const imageData = e.target.result;
+        const savedCustoms = JSON.parse(localStorage.getItem("rock_custom_items") || "[]");
+        
+        savedCustoms.push({ name: nameInput.value, image: imageData });
+        localStorage.setItem("rock_custom_items", JSON.stringify(savedCustoms));
+        
+        loadCustomItems(); 
+        alert("Item added to Shop!");
+        
+        customOverlay.style.display = "none";
+        nameInput.value = "";
+        fileInput.value = "";
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+};
+
+
+document.getElementById("s").addEventListener("click", loadCustomItems);
+
+
+loadCustomItems();
+
+  </script>
+</body>
+</html>
