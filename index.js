@@ -129,7 +129,7 @@ const items = {
   "e1": "eye1.png", "e2": "eye2.png", "e3": "eye3.png",
   "h1": "balcap.png", "h2": "top.png", "h3": "moustache.png",
   "h4": "pirate.png", "h5": "chef.png", "h6": "builderhat.png",
-  "m1": "mouth.png", "m2": "smile.png", "m3": "default.png"
+  "m1": "mouth.png", "m2": "smile.png", "m3": "default.png", "m4": "m4.png","m5": "m5.png","m6": "m6.png", "e4": "eye4.png","e5": "eye5.png","e6": "eye6.png","ra1": "leg.png","ra2": "goggle.png","ra3": "headset.png", "ra4": "pixel.png","ra5": "arm.png","ra6": "crown.png"
 };
 
 Object.keys(items).forEach(id => {
@@ -473,13 +473,17 @@ function applySkin(fileName, price) {
   }
 }
 
+
+ 
 document.getElementById("btn-red").onclick = () => applySkin("red.png", 50);
 document.getElementById("btn-blue").onclick = () => applySkin("blue.png", 100);
 document.getElementById("btn-yellow").onclick = () => applySkin("yellow.png", 100);
 document.getElementById("btn-rainbow").onclick = () => applySkin("rainbow.png", 350);
 document.getElementById("btn-hardy").onclick = () => applySkin("big.png", 50);
 document.getElementById("btn-devils").onclick = () => applySkin("devil.png", 100);
-document.getElementById("btn-normal").onclick = () => applySkin("rocky.png", 50);
+document.getElementById("btn-golden").onclick = () => applySkin("gold.png", 000); 
+document.getElementById("btn-normal").onclick = () => applySkin("rocky.png", 0);
+
 
 const savedBg = localStorage.getItem("rock_bg");
 if (savedBg) {
