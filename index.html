@@ -4,222 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Digital Pet Rock & Chat</title>
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<button type="button" id="s">🛒 Shop</button>
-<h3 id="moneydisp">Money: 5💵</h3>
-<input type="text" id="name" placeholder="Give your rock a name...">
-<button type="button" id="chat">CHAT WITH Unamed rock</button>
-<button type="button" id="stop-drag">Stop DRAGGING</button>
-<button type="button" id="outfit-btn">👔 My Outfits</button>
 
-<button type="button" id="clear-menu-btn">🧹Clear Menu</button>
-<button type="button" id="unclear-btn">✨ Unclear Buttons</button>
-<button type="button" id="custom-item-btn">🎨 Custom Item</button>
-<button type="button" id="surgery-btn">🗿 Stone body shop</button>
+  <div class="header-ui">
+    <h3 id="moneydisp">Money: 5💵</h3>
+    <input type="text" id="name" placeholder="Give your rock a name...">
+    <div class="main-buttons">
+      <button type="button" id="s">🛒 Shop</button>
+      <button type="button" id="chat">CHAT WITH Unnamed Rock</button>
+      <button type="button" id="outfit-btn">👔 My Outfits</button>
+      <button type="button" id="surgery-btn">🗿 Stone Body Shop</button>
+    </div>
+  </div>
 
-<div id="clear-overlay" class="overlay">
-  <h1>What do you want to clear?</h1>
-  <button id="clear-items-btn">🗑️ Clear All Items</button>
-  <button id="clear-ui-btn">🚫 Clear All Buttons</button>
-  <button id="close-clear">Cancel</button>
-</div>
+  <div class="control-panel">
+    <button type="button" id="stop-drag">Stop DRAGGING</button>
+    <button type="button" id="clear-menu-btn">🧹 Clear Menu</button>
+    <button type="button" id="unclear-btn">✨ Unclear Buttons</button>
+    <button type="button" id="custom-item-btn">🎨 Custom Item</button>
+    <button type="button" id="code">Code🐦</button>
+  </div>
 
-<div id="custom-overlay" class="overlay">
-    <h2>Create Custom Item</h2>
-    <input type="text" id="custom-name" placeholder="Item Name...">
-    <p>Upload Image:</p>
-    <input type="file" id="custom-file" accept="image/*">
-    <div id="custom-btn-group">
+  <div id="clear-overlay" class="overlay">
+    <div class="overlay-content">
+      <h1>What do you want to clear?</h1>
+      <button id="clear-items-btn">🗑️ Clear All Items</button>
+      <button id="clear-ui-btn">🚫 Clear All Buttons</button>
+      <button id="close-clear">Cancel</button>
+    </div>
+  </div>
+
+  <div id="custom-overlay" class="overlay">
+    <div class="overlay-content">
+      <h2>Create Custom Item</h2>
+      <input type="text" id="custom-name" placeholder="Item Name...">
+      <p>Upload Image:</p>
+      <input type="file" id="custom-file" accept="image/*">
+      <div id="custom-btn-group">
         <button id="confirm-custom">Confirm (100💵)</button>
         <button id="close-custom">Cancel</button>
+      </div>
     </div>
-</div>
-
-<div id="outfit-overlay" class="overlay">
-  <h1>My Saved Outfits</h1>
-  <button id="save-current-outfit">+ Save Current Outfit</button>
-  <div id="outfit-list" class="outfit-list"></div>
-  <button id="close-outfit">Close</button>
-</div>
-
-<div id="surgery-overlay" class="overlay">
-  <h2>Stone Plastic Surgery 💉</h2>
-  <div id="surgery-grid">
-    <button id="btn-red">Red (50💵)</button>
-    <button id="btn-blue">Blue (100💵)</button>
-    <button id="btn-yellow">Yellow (100💵)</button>
-    <button id="btn-rainbow">Rainbow (350💵)</button>
-    <button id="btn-hardy">Hardy (50)</button>
-    <button id="btn-devils">Devils (100)</button>
-    <button id="btn-normal">Normal (0)</button>
-    <button id="btn-golden"> Golden (10.000)
-</button>
-    <button id="btn-money"> Money (50.000)
-</button>
-  <button id="close-surgery">Cancel</button>
   </div>
-</div>
 
-<button type="button" id="code" >Code🐦</button>
-<div id="coverlay">
-  <button type="button" id="xbu">×</button>
-  <h1>🪨+y+⭐</h1>
-  <h1 style="font-size: 50px;">Input code</h1>
-  <input type="text" id="codin">
-  
+  <div id="outfit-overlay" class="overlay">
+    <div class="overlay-content">
+      <h1>My Saved Outfits</h1>
+      <button id="save-current-outfit">+ Save Current Outfit</button>
+      <div id="outfit-list" class="outfit-list"></div>
+      <button id="close-outfit">Close</button>
+    </div>
   </div>
-  
-  
+
+  <div id="surgery-overlay" class="overlay">
+    <div class="overlay-content">
+      <h2>Stone Plastic Surgery 💉</h2>
+      <div id="surgery-grid">
+        <button id="btn-red">Red (50💵)</button>
+        <button id="btn-blue">Blue (100💵)</button>
+        <button id="btn-yellow">Yellow (100💵)</button>
+        <button id="btn-rainbow">Rainbow (350💵)</button>
+        <button id="btn-hardy">Hardy (50)</button>
+        <button id="btn-devils">Devils (100)</button>
+        <button id="btn-normal">Normal (0)</button>
+        <button id="btn-golden">Golden (10.000)</button>
+        <button id="btn-money">Money (50.000)</button>
+      </div>
+      <button id="close-surgery">Cancel</button>
+    </div>
+  </div>
+
+  <div id="coverlay" class="overlay">
+    <div class="overlay-content">
+      <button type="button" id="xbu">×</button>
+      <h1>🪨+y+⭐</h1>
+      <h1 style="font-size: 50px;">Input code</h1>
+      <input type="text" id="codin">
+    </div>
+  </div>
+
   <div class="screen-overlay" id="overlay">
     <div class="content">
       <h1>Rock Needs Shop 🛒</h1>
-      <div id="img">
-        <img src="eye1.png" />
-        <img src="eye2.png" />
-        <img src="eye3.png" />
-      </div>
-      <div id="buy">
-        <button id="e1" data-p="20">BUY (20)</button>
-        <button id="e2" data-p="30">BUY (30)</button>
-        <button id="e3" data-p="40">BUY (40)</button>
-      </div>
-      <div id="img">
-        <img src="balcap.png" />
-        <img src="top.png" />
-        <img src="moustache.png" />
-      </div>
-      <div id="buy">
-        <button id="h1" data-p="20">BUY (20)</button>
-        <button id="h2" data-p="30">BUY (30)</button>
-        <button id="h3" data-p="40">BUY (40)</button>
-      </div>
-      <div id="img">
-        <img src="pirate.png" />
-        <img src="chef.png" />
-        <img src="builderhat.png" />
-      </div>
-      <div id="buy">
-        <button id="h4" data-p="20">BUY (20)</button>
-        <button id="h5" data-p="30">BUY (30)</button>
-        <button id="h6" data-p="40">BUY (40)</button>
-      </div>
-      <div id="img">
-        <img src="mouth.png" />
-        <img src="smile.png" />
-        <img src="default.png" />
-      </div>
-      <div id="buy">
-        <button id="m1" data-p="10">BUY (10)</button>
-        <button id="m2" data-p="30">BUY (30)</button>
-        <button id="m3" data-p="20">BUY (20)</button>
-      </div>
-        <div id="img">
-    <img src="m4.png" />
-    <img src="m5.png" />
-    <img src="m6.png" />
-  </div>
-        <div id="buy">
-        <button id="m4" data-p="50">BUY (50)</button>
-        <button id="m5" data-p="40">BUY (40)</button>
-        <button id="m6" data-p="30">BUY (30)</button>
-      </div>
-              <div id="img">
-          <img src="eye4.png" />
-          <img src="eye5.png" />
-          <img src="eye6.png" />
-        </div>
-          <div id="buy">
-    <button id="e4" data-p="10">BUY (50)</button>
-    <button id="e5" data-p="30">BUY (30)</button>
-    <button id="e6" data-p="30">BUY (30)</button>
-  </div>
-  
-  <div id="img">
-   <img src="leg.png" />
-    <img src="goggle.png" />
-      <img src="headset.png" />
-  </div>
-    
-       <div id="buy">
-     <button id="ra1" data-p="15">BUY (15)</button>
-     <button id="ra2" data-p="35">BUY (35)</button>
-     <button id="ra3" data-p="20">BUY (20)</button>
-   </div>
       
-        <div id="img">
-    <img src="pixel.png" />
-    <img src="bandana.png" />
-    <img src="crown.png" />
-  </div>
-         <div id="buy">
-         <button id="ra4" data-p="60">BUY (60)</button>
-         <button id="ra5" data-p="100">BUY (100)</button>
-         <button id="ra6" data-p="5000">BUY (5000)</button>
-       </div>
-       
-          <div id="img">
-          <img src="arlef.png" />
-          <img src="arri.png" />
-          <img src="mexico.png" />
-        </div>
-        
-          <div id="buy">
-    <button id="ra7" data-p="60">BUY (60)</button>
-    <button id="ra8" data-p="80">BUY (80)</button>
-    <button id="ra9" data-p="67">BUY (67)</button>
-  </div>
-  
-   <div id="img">
-   <img src="e7.png" />
-   <img src="ra10.png" />
-   <img src="halo.png" />
-   </div>
-   
-    <div id="buy">
-   <button id="eye7" data-p="40">BUY (40)</button>
-   <button id="ra10" data-p="20">BUY (20)</button>
-   <button id="ra11" data-p="70">BUY (70)</button>
- </div>
- 
-   <div id="img">
-   <img src="ha1.png" />
-   <img src="ha2.png" />
-   <img src="ha3.png" />
-   </div>
-   
-    <div id="buy">
-   <button id="ha1" data-p="20">BUY (20)</button>
-   <button id="ha2" data-p="30">BUY (30)</button>
-   <button id="ha3" data-p="30">BUY (30)</button>
- </div>
- 
+      <div class="shop-row">
+        <div class="item-group"><img src="eye1.png"><button id="e1" data-p="20">BUY (20)</button></div>
+        <div class="item-group"><img src="eye2.png"><button id="e2" data-p="30">BUY (30)</button></div>
+        <div class="item-group"><img src="eye3.png"><button id="e3" data-p="40">BUY (40)</button></div>
+      </div>
+
+      <div class="shop-row">
+        <div class="item-group"><img src="balcap.png"><button id="h1" data-p="20">BUY (20)</button></div>
+        <div class="item-group"><img src="top.png"><button id="h2" data-p="30">BUY (30)</button></div>
+        <div class="item-group"><img src="moustache.png"><button id="h3" data-p="40">BUY (40)</button></div>
+      </div>
+
       <h3 style="margin-top:30px;">Custom Items</h3>
-<div id="custom-shop-container" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 50px;">
-    </div>
+      <div id="custom-shop-container"></div>
 
-      <button id="close-btn">Close</button>
+      <button id="close-btn">Close Shop</button>
     </div>
   </div>
 
-  <div id="chat-overlay">
+  <div id="chat-overlay" class="overlay">
     <div class="app-container">
-      <button id="close-chat">&times;</button>
       <div class="header">
-          <div style="position: relative;">
+          <button id="close-chat">&times;</button>
+          <div class="avatar-info">
               <div class="avatar"></div>
               <div class="status-dot"></div>
-          </div>
-          <div>
-              <h4 id="chat-header-name" style="margin:0; font-size: 16px; color: black;">unamed rock</h4>
-              <p style="margin:0; font-size: 12px; color: #65676b;">Active right now</p>
+              <div>
+                  <h4 id="chat-header-name">Unnamed Rock</h4>
+                  <p class="status-text">Active right now</p>
+              </div>
           </div>
       </div>
-
-      <div id="chat-window">
-      </div>
-
+      <div id="chat-window"></div>
       <div class="input-area">
           <input type="text" id="user-input" placeholder="Type something..." autocomplete="off">
           <button class="send-btn" onclick="prosesChat()">Send</button>
@@ -227,7 +129,6 @@
     </div>
   </div>
 
-  <script src="index.js">
-  </script>
+  <script src="index.js"></script>
 </body>
 </html>
