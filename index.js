@@ -2,7 +2,7 @@ const shopButton = document.getElementById("s");
 const overlay = document.getElementById("overlay");
 const closeButton = document.getElementById("close-btn");
 const md = document.getElementById("moneydisp");
-let money = 5;
+
 
 shopButton.onclick = () => overlay.style.display = "flex";
 closeButton.onclick = () => overlay.style.display = "none";
@@ -129,7 +129,7 @@ const items = {
   "e1": "eye1.png", "e2": "eye2.png", "e3": "eye3.png",
   "h1": "balcap.png", "h2": "top.png", "h3": "moustache.png",
   "h4": "pirate.png", "h5": "chef.png", "h6": "builderhat.png",
-  "m1": "mouth.png", "m2": "smile.png", "m3": "default.png", "m4": "m4.png","m5": "m5.png","m6": "m6.png", "e4": "eye4.png","e5": "eye5.png","e6": "eye6.png","ra1": "leg.png","ra2": "goggle.png","ra3": "headset.png", "ra4": "pixel.png","ra5": "arm.png","ra6": "crown.png"
+  "m1": "mouth.png", "m2": "smile.png", "m3": "default.png", "m4": "m4.png","m5": "m5.png","m6": "m6.png", "e4": "eye4.png","e5": "eye5.png","e6": "eye6.png","ra1": "leg.png","ra2": "goggle.png","ra3": "headset.png", "ra4": "pixel.png","ra5": "arm.png","ra6": "crown.png","ra7": "arlef.png","ra8": "arri.png","ra9": "mexico.png","ra10": "ra10.png","eye7": "e7.png","ra11": "halo.png","ha1": "ha1.png","ha2": "ha2.png","ha3": "ha3.png"
 };
 
 Object.keys(items).forEach(id => {
@@ -341,7 +341,7 @@ clearMenuBtn.onclick = () => clearOverlay.style.display = "flex";
 closeClearBtn.onclick = () => clearOverlay.style.display = "none";
 
 clearItemsBtn.onclick = () => {
-  if (confirm("Delete all your ")) {
+  if (confirm("Delete all of your item?")) {
     document.querySelectorAll('body > img').forEach(img => img.remove());
     localStorage.setItem("rock_items", JSON.stringify([]));
     clearOverlay.style.display = "none";
@@ -420,7 +420,7 @@ confirmCustomBtn.onclick = () => {
   const fileInput = document.getElementById("custom-file");
   
   if (!nameInput.value.trim() || fileInput.files.length === 0) {
-    return alert("Isi nama & upload gambarnya!");
+    return alert("Upload the image and Give a name for the item!");
   }
   
   const reader = new FileReader();
@@ -473,19 +473,129 @@ function applySkin(fileName, price) {
   }
 }
 
+let savedMoney = localStorage.getItem("rock_money");
 
- 
+if (savedMoney !== null) {
+  money = Number(savedMoney);
+}
+let moneyTimer = null;
+let isMoneyBg = false;
+
+
+document.getElementById("moneydisp").innerText = "Money: " + money + "💵";
+
+
+
+
+function updatePassiveIncome() {
+  if (isMoneyBg) {
+    if (moneyTimer === null) {
+      moneyTimer = setInterval(() => {
+        money += 10;
+        document.getElementById("moneydisp").innerText = "Money: " + money + "💵";
+        localStorage.setItem("rock_money", money);
+      }, 1000);
+    }
+  } else {
+    if (moneyTimer !== null) {
+      clearInterval(moneyTimer);
+      moneyTimer = null;
+    }
+  }
+}
+
+
+
+
+function applySkin(bg, price) {
+  if (money < price) {
+    alert("Uang tidak cukup!");
+    return;
+  }
+  
+  money -= price;
+  localStorage.setItem("rock_money", money);
+  
+  document.body.style.backgroundImage = "url('" + bg + "')";
+  localStorage.setItem("rock_bg", bg);
+  
+  
+  isMoneyBg = (bg === "money.png");
+  updatePassiveIncome();
+  
+  
+  document.getElementById("moneydisp").innerText = "Money: " + money + "💵";
+}
+
+
+
+
 document.getElementById("btn-red").onclick = () => applySkin("red.png", 50);
 document.getElementById("btn-blue").onclick = () => applySkin("blue.png", 100);
 document.getElementById("btn-yellow").onclick = () => applySkin("yellow.png", 100);
 document.getElementById("btn-rainbow").onclick = () => applySkin("rainbow.png", 350);
 document.getElementById("btn-hardy").onclick = () => applySkin("big.png", 50);
 document.getElementById("btn-devils").onclick = () => applySkin("devil.png", 100);
-document.getElementById("btn-golden").onclick = () => applySkin("gold.png", 000); 
+document.getElementById("btn-golden").onclick = () => applySkin("gold.png", 5000);
 document.getElementById("btn-normal").onclick = () => applySkin("rocky.png", 0);
+document.getElementById("btn-money").onclick = () => applySkin("money.png", 50000);
+
+
 
 
 const savedBg = localStorage.getItem("rock_bg");
+
 if (savedBg) {
   document.body.style.backgroundImage = "url('" + savedBg + "')";
+  
+  
+  isMoneyBg = (savedBg === "money.png");
+  updatePassiveIncome();
 }
+
+
+let codin = document.getElementById("codin");
+let code = document.getElementById("code");
+let codov = document.getElementById("coverlay");
+let xbu = document.getElementById("xbu");
+let usedCodes = [];
+
+codin.addEventListener('change', function() {
+  let inputVal = codin.value;
+  
+  
+  if (usedCodes.includes(inputVal)) {
+    alert("This code has already been used!");
+    codin.value = "";
+    return;
+  }
+  
+  
+  switch (inputVal) {
+    case "GigaRock":
+      alert("10.000 money awarded!");
+      money += 10000;
+      usedCodes.push(inputVal);
+      break;
+      
+    case "Rockystar":
+      alert("4000 money awarded!");
+      money += 4000;
+      usedCodes.push(inputVal);
+      break;
+      
+    default:
+      alert("Invalid Code");
+  }
+  
+  codin.value = "";
+});
+
+code.onclick = () => {
+    codov.style.display = "flex";
+}
+
+xbu.onclick = () => {
+  codov.style.display = "none";
+}
+
