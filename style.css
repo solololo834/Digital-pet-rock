@@ -103,13 +103,13 @@
       background-color: red;
       color: white;
       font-weight: bold;
-      z-index: 2;
+      z-index: 3;
     }
     #chat {
       position: fixed;
       top: 600px;
-      left: 220px;
-      padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #0984e3; color: white; border: none; z-index: 3;
+      left: 215px;
+   font-size: 10px; cursor: pointer; border-radius: 5px; background-color: #0984e3; color: white; border: none; z-index: 3;
       bottom: 5px;
 
     }
@@ -239,3 +239,208 @@
 }
 
 
+#coverlay {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); z-index: 2005; display: none; flex-direction: column; align-items: center; justify-content: center; color: white; gap: 15px;
+}
+
+#code {
+  position: fixed; top: 500px; left: 250px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: lightgreen; color: white; border: none; z-index: 3;
+}
+
+#close-surgery {
+  position: fixed;
+  top: 550px;
+  left: 120px;
+  margin-top: 20px; padding: 10px 30px; background: none; border: 1px solid white; color: white; cursor: pointer; border-radius: 5px;
+}
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: none; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 2000;
+  gap: 20px;
+}
+
+#clear-menu-btn {
+  position: fixed;
+  top: 500px;
+  left: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #6c5ce7;
+  color: white;
+  border: none;
+  z-index: 3;
+}
+
+#unclear-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #00b894;
+  color: white;
+  border: none;
+  z-index: 1000;
+  display: none;
+}
+
+#custom-item-btn {
+  position: fixed;
+  top: 550px;
+  left: 200px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #0984e3;
+  color: white;
+  border: none;
+  z-index: 3;
+}
+
+#surgery-btn {
+  position: fixed;
+  top: 450px;
+  left: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #a29bfe;
+  color: white;
+  border: none;
+  z-index: 3;
+}
+
+#clear-items-btn {
+  padding: 15px 30px;
+  background: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#clear-ui-btn {
+  padding: 15px 30px;
+  background: #fdcb6e;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#close-clear {
+  margin-top: 20px;
+  color: white;
+  background: none;
+  border: 1px solid white;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+#custom-name {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 250px;
+}
+
+#custom-btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#confirm-custom {
+  padding: 10px 20px;
+  background: #42b72a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#close-custom {
+  padding: 10px 20px;
+  background: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#surgery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+#btn-red { background: #ff4757; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; }
+#btn-blue { background: #2e86de; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; }
+#btn-yellow { background: #f1c40f; color: black; border: none; padding: 15px; border-radius: 8px; cursor: pointer; }
+#btn-rainbow { background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; }
+#btn-hardy { background: #747d8c; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; }
+#btn-devils { background: #2f3542; color: #ff4757; border: none; padding: 15px; border-radius: 8px; cursor: pointer; }
+#btn-normal { background: #2f3542; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; }
+
+#btn-golden {
+      padding: 15px;
+    background: linear-gradient(135deg, #FFD700, #FFF8DC);
+    color: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 15px gold,
+    0 0 30px #FFD700;
+    font-weight: bold;
+    
+}
+
+
+#btn-money {
+      padding: 15px;
+    background: linear-gradient(135deg, #08F44D, #B6EBC6);   
+    color: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #2FE365,
+    0 0 30px #00FF4D;
+    font-weight: bold;
+    
+}
+
+
+#save-current-outfit { padding: 10px 20px; background: #0084ff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+#close-outfit { margin-top: 30px; padding: 10px 40px; background: #ff4c4c; color: white; border: none; border-radius: 5px; cursor: pointer; }
+
+#xbu {
+  position: fixed;
+  background-color: #FF4949;
+  color: white;
+  bottom: 600px;
+  left: 300px;
+  border: none;
+}
