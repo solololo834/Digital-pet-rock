@@ -7,78 +7,70 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <button type="button" id="s">🛒 Shop</button>
-  <h3 id="moneydisp">Money: 5💵</h3>
-  <input type="text" id="name" placeholder="Give your rock a name...">
-  <button type="button" id="chat">CHAT WITH Unamed rock</button>
-  <button type="button" id="stop-drag">Stop DRAGGING</button>
+<button type="button" id="s">🛒 Shop</button>
+<h3 id="moneydisp">Money: 5💵</h3>
+<input type="text" id="name" placeholder="Give your rock a name...">
+<button type="button" id="chat">CHAT WITH Unamed rock</button>
+<button type="button" id="stop-drag">Stop DRAGGING</button>
 <button type="button" id="outfit-btn">👔 My Outfits</button>
 
-<button type="button" id="clear-menu-btn" style="position: fixed; top: 500px; left: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #6c5ce7; color: white; border: none; z-index: 3;">🧹 Clear Menu</button>
+<button type="button" id="clear-menu-btn">🧹Clear Menu</button>
+<button type="button" id="unclear-btn">✨ Unclear Buttons</button>
+<button type="button" id="custom-item-btn">🎨 Custom Item</button>
+<button type="button" id="surgery-btn">🗿 Stone body shop</button>
 
-<button type="button" id="unclear-btn" style="position: fixed; top: 20px; left: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #00b894; color: white; border: none; z-index: 1000; display: none;">✨ Unclear Buttons</button>
-
-<div id="clear-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.8); z-index: 2002; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
-  <h1 style="color: white;">What do you want to clear?</h1>
-  <button id="clear-items-btn" style="padding: 15px 30px; background: #ff4c4c; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold;">🗑️ Clear All Items</button>
-  <button id="clear-ui-btn" style="padding: 15px 30px; background: #fdcb6e; color: black; border: none; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold;">🚫 Clear All Buttons</button>
-  <button id="close-clear" style="margin-top: 20px; color: white; background: none; border: 1px solid white; padding: 5px 15px; cursor: pointer;">Cancel</button>
+<div id="clear-overlay" class="overlay">
+  <h1>What do you want to clear?</h1>
+  <button id="clear-items-btn">🗑️ Clear All Items</button>
+  <button id="clear-ui-btn">🚫 Clear All Buttons</button>
+  <button id="close-clear">Cancel</button>
 </div>
 
-<button type="button" id="custom-item-btn" style="position: fixed; top: 550px; left: 200px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #0984e3; color: white; border: none; z-index: 3;">🎨 Custom Item</button>
-
-<div id="custom-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); z-index: 2005; display: none; flex-direction: column; align-items: center; justify-content: center; color: white; gap: 15px;">
+<div id="custom-overlay" class="overlay">
     <h2>Create Custom Item</h2>
-    <input type="text" id="custom-name" placeholder="Item Name..." style="padding: 10px; border-radius: 5px; border: none; width: 250px;">
+    <input type="text" id="custom-name" placeholder="Item Name...">
     <p>Upload Image:</p>
-    <input type="file" id="custom-file" accept="image/*" style="color: white;">
-    <div style="display: flex; gap: 10px; margin-top: 10px;">
-        <button id="confirm-custom" style="padding: 10px 20px; background: #42b72a; color: white; border: none; border-radius: 5px; cursor: pointer;">Confirm (100💵)</button>
-        <button id="close-custom" style="padding: 10px 20px; background: #ff4c4c; color: white; border: none; border-radius: 5px; cursor: pointer;">Cancel</button>
+    <input type="file" id="custom-file" accept="image/*">
+    <div id="custom-btn-group">
+        <button id="confirm-custom">Confirm (100💵)</button>
+        <button id="close-custom">Cancel</button>
     </div>
 </div>
 
-<div id="outfit-overlay">
+<div id="outfit-overlay" class="overlay">
   <h1>My Saved Outfits</h1>
-  <button id="save-current-outfit" style="padding: 10px 20px; background: #0084ff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-    + Save Current Outfit
-  </button>
-  <div class="outfit-list" id="outfit-list">
-    </div>
-  <button id="close-outfit" style="margin-top: 30px; padding: 10px 40px; background: #ff4c4c; color: white; border: none; border-radius: 5px; cursor: pointer;">
-    Close
-  </button>
+  <button id="save-current-outfit">+ Save Current Outfit</button>
+  <div id="outfit-list" class="outfit-list"></div>
+  <button id="close-outfit">Close</button>
 </div>
 
-<button type="button" id="surgery-btn" style="position: fixed; top: 450px; left: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; background-color: #a29bfe; color: white; border: none; z-index: 3;">🗿 Stone plastic surgery</button>
-
-<div id="surgery-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); z-index: 2010; display: none; flex-direction: column; align-items: center; justify-content: center; color: white; gap: 20px;">
+<div id="surgery-overlay" class="overlay">
   <h2>Stone Plastic Surgery 💉</h2>
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
-    <button id="btn-red" style="padding: 15px; background: #ff4757; color: white; border: none; border-radius: 8px; cursor: pointer;">Red (50💵)</button>
-    <button id="btn-blue" style="padding: 15px; background: #2e86de; color: white; border: none; border-radius: 8px; cursor: pointer;">Blue (100💵)</button>
-    <button id="btn-yellow" style="padding: 15px; background: #f1c40f; color: black; border: none; border-radius: 8px; cursor: pointer;">Yellow (100💵)</button>
-    <button id="btn-rainbow" style="padding: 15px; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); color: white; border: none; border-radius: 8px; cursor: pointer;">Rainbow (350💵)</button>
-    <button id="btn-hardy" style="padding: 15px; background: #747d8c; color: white; border: none; border-radius: 8px; cursor: pointer;">Hardy(50)</button>
-    <button id="btn-devils" style="padding: 15px; background: #2f3542; color: #ff4757; border: none; border-radius: 8px; cursor: pointer;">Devils(100)</button>
-    <button id="btn-normal" style="padding: 15px; background: #2f3542; border: none; border-radius: 8px; cursor: pointer;">Normal(0)</button>
-<button id="btn-golden" style="
-  padding: 15px;
-  background: linear-gradient(135deg, #FFD700, #FFF8DC);
-  color: black;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 0 15px gold, 0 0 30px #FFD700;
-  font-weight: bold;
-">
-  Golden (10.000)
+  <div id="surgery-grid">
+    <button id="btn-red">Red (50💵)</button>
+    <button id="btn-blue">Blue (100💵)</button>
+    <button id="btn-yellow">Yellow (100💵)</button>
+    <button id="btn-rainbow">Rainbow (350💵)</button>
+    <button id="btn-hardy">Hardy (50)</button>
+    <button id="btn-devils">Devils (100)</button>
+    <button id="btn-normal">Normal (0)</button>
+    <button id="btn-golden"> Golden (10.000)
+    <button id="btn-money"> Money (50.000)
 </button>
+  <button id="close-surgery">Cancel</button>
   </div>
-  <button id="close-surgery" style="margin-top: 20px; padding: 10px 30px; background: none; border: 1px solid white; color: white; cursor: pointer; border-radius: 5px;">Cancel</button>
 </div>
 
+<button type="button" id="code" >Code🐦</button>
+<div id="coverlay">
+  <button type="button" id="xbu">×</button>
+  <h1>🪨+y+⭐</h1>
+  <h1 style="font-size: 50px;">Input code</h1>
+  <input type="text" id="codin">
+  
+  </div>
+  
+  
   <div class="screen-overlay" id="overlay">
     <div class="content">
       <h1>Rock Needs Shop 🛒</h1>
@@ -157,7 +149,7 @@
       
         <div id="img">
     <img src="pixel.png" />
-    <img src="arm.png" />
+    <img src="bandana.png" />
     <img src="crown.png" />
   </div>
          <div id="buy">
@@ -165,7 +157,43 @@
          <button id="ra5" data-p="100">BUY (100)</button>
          <button id="ra6" data-p="5000">BUY (5000)</button>
        </div>
+       
+          <div id="img">
+          <img src="arlef.png" />
+          <img src="arri.png" />
+          <img src="mexico.png" />
+        </div>
+        
+          <div id="buy">
+    <button id="ra7" data-p="60">BUY (60)</button>
+    <button id="ra8" data-p="80">BUY (80)</button>
+    <button id="ra9" data-p="67">BUY (67)</button>
+  </div>
   
+   <div id="img">
+   <img src="e7.png" />
+   <img src="ra10.png" />
+   <img src="halo.png" />
+   </div>
+   
+    <div id="buy">
+   <button id="eye7" data-p="40">BUY (40)</button>
+   <button id="ra10" data-p="20">BUY (20)</button>
+   <button id="ra11" data-p="70">BUY (70)</button>
+ </div>
+ 
+   <div id="img">
+   <img src="ha1.png" />
+   <img src="ha2.png" />
+   <img src="ha3.png" />
+   </div>
+   
+    <div id="buy">
+   <button id="ha1" data-p="20">BUY (20)</button>
+   <button id="ha2" data-p="30">BUY (30)</button>
+   <button id="ha3" data-p="30">BUY (30)</button>
+ </div>
+ 
       <h3 style="margin-top:30px;">Custom Items</h3>
 <div id="custom-shop-container" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 50px;">
     </div>
